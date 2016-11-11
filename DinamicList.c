@@ -6,11 +6,9 @@ typedef struct Node{
 	struct Node* next;
 } Node;
 
-
 void create(Node **head){
 	*head = NULL;
 }
-
 
 void prepend(Node **head, int value){
 	Node *new;
@@ -82,6 +80,51 @@ void printList(Node *head){
 	}
 }
 
+int removeFirst(Node **head){
+	Node *next = (*head)->next;
+
+	if(*head == NULL){
+		printf("The list is empty\n");
+		return -1;
+	}
+
+	free(*head);
+	*head = next;
+}
+
+int removeFromIndex(Node **head, int index){
+	int i;
+	
+	Node *current = *head; 
+	Node *deleted = NULL; //node to be deleted
+	
+	int l = length(*head);
+
+	if(index > (l-1)){
+		printf("Index out of range\n");
+		return -1;
+	}
+
+	if(index == 0){
+		removeFirst(&(*head));
+		return 0;
+	}
+
+	/* Goes to the index before the one to be deleted */
+	for (int i = 0; i < index - 1; i++){
+		current = current->next;
+	}
+
+	/* Links the previous node to the next Node */
+	deleted = current->next;
+	current->next = deleted->next;
+
+	/* finally deletes the given node */
+	free(deleted);
+	deleted = NULL;
+}
+
+/* Main function with some test cases */
 int main(){
 	int m, n, i, j;
 	Node *list;
@@ -90,31 +133,9 @@ int main(){
 	for(i = 0; i < 10; i++){
 		append(&list, i);
 	}
-	
+	printList(list);
+	printf("\n");
+	removeFirst(&list);
+	removeFromIndex(&list, 0);
 	printList(list);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
