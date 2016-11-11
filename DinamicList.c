@@ -126,7 +126,7 @@ int removeFromIndex(Node **head, int index){
 
 /* Main function with some test cases */
 int main(){
-	int m, n, i, j;
+	int i;
 	
 	Node *list; //Declares the list
 	create(&list); //Creates the list
