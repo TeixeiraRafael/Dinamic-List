@@ -106,6 +106,7 @@ int removeFromIndex(Node **head, int index){
 	}
 
 	if(index == 0){
+		/* We already have a method to delete the first item of a list */
 		removeFirst(&(*head));
 		return 0;
 	}
@@ -137,15 +138,18 @@ int main(){
 	}
 
 	/* Prints the list */
+	printf("Full list:\n");
 	printList(list);
-	printf("\n");
+	
 	
 	/* Removes the first item of the list */
+	printf("\nRemoving the first item:\n");
 	removeFirst(&list);
+	printList(list);
 
 	/* Removes the item on the index 5 */
+	printf("\nRemoving the index 5 item: \n");
 	removeFromIndex(&list, 5);
-
 	/* Prints the list again */
 	printList(list);
 }
