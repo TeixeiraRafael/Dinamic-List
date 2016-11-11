@@ -127,15 +127,25 @@ int removeFromIndex(Node **head, int index){
 /* Main function with some test cases */
 int main(){
 	int m, n, i, j;
-	Node *list;
-	create(&list);
+	
+	Node *list; //Declares the list
+	create(&list); //Creates the list
 
+	/* Adds 10 values to the list */
 	for(i = 0; i < 10; i++){
 		append(&list, i);
 	}
+
+	/* Prints the list */
 	printList(list);
 	printf("\n");
+	
+	/* Removes the first item of the list */
 	removeFirst(&list);
-	removeFromIndex(&list, 0);
+
+	/* Removes the item on the index 5 */
+	removeFromIndex(&list, 5);
+
+	/* Prints the list again */
 	printList(list);
 }
