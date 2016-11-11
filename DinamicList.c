@@ -65,29 +65,33 @@ int length(Node *head){
 	return cont;
 }
 
-void printList(Node *head){
-	int cont = 0;
-
-	while(head != NULL){
-		printf("[%d] = %d\n", cont, head->data);
+int getValue(Node *head, int index){
+	int i;
+	for(i = 0; i < index; i++){
 		head = head->next;
-		cont++;		
+	}
+	return head->data;
+}
+
+void printList(Node *head){
+	int i;
+	int l = length(head);
+	for(i = 0; i < l; i++){
+		printf("[%d] = %d\n", i, head->data);
+		head = head->next;
 	}
 }
 
 int main(){
 	int m, n, i, j;
-	
 	Node *list;
-	
 	create(&list);
-	int cont = 0;
 
 	for(i = 0; i < 10; i++){
 		append(&list, i);
 	}
+	
 	printList(list);
-	printf("List lenght = %d\n", length(list));
 }
 
 
