@@ -100,14 +100,12 @@ int removeFirst(Node **head){
 }
 
 int removeFromIndex(Node **head, int index){
-	int i;
-	
 	Node *current = *head; 
 	Node *deleted = NULL; //node to be deleted
 	
 	int l = length(*head);
-
-	if(index > (l-1) || index < 0){
+	
+	if(index >= l || index < 0){
 		printf("Index out of bounds.\n");
 		exit(1);
 	}
@@ -140,7 +138,7 @@ int removeByValue(Node **head, int value){
 		data = current->data;
 		
 		if(data == value){
-			removeFromIndex(&current, i);
+			removeFromIndex(&(*head), i);
 			return 0;
 		}
 
