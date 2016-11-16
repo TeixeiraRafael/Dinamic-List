@@ -65,6 +65,13 @@ int length(Node *head){
 
 int getValue(Node *head, int index){
 	int i;
+
+	if(index >= length(head)){
+		printf("Index out of bounds.\n");
+		exit(1);
+
+	}
+
 	for(i = 0; i < index; i++){
 		head = head->next;
 	}
@@ -100,9 +107,9 @@ int removeFromIndex(Node **head, int index){
 	
 	int l = length(*head);
 
-	if(index > (l-1)){
-		printf("Index out of range\n");
-		return -1;
+	if(index > (l-1) || index < 0){
+		printf("Index out of bounds.\n");
+		exit(1);
 	}
 
 	if(index == 0){
@@ -125,31 +132,78 @@ int removeFromIndex(Node **head, int index){
 	deleted = NULL;
 }
 
+int removeByValue(Node **head, int value){
+	Node *current = *head;
+	int data;
+	int l = length(*head);
+	for(int i = 0; i < l; i++){
+		data = current->data;
+		
+		if(data == value){
+			removeFromIndex(&current, i);
+			return 0;
+		}
+
+		current = current->next;
+	}
+	printf("Value %d not found.\n", value);
+}
+
 /* Main function with some test cases */
 int main(){
-	int i;
-	
+	int i, input, option, option2, retrn;
+
 	Node *list; //Declares the list
 	create(&list); //Creates the list
-
-	/* Adds 10 values to the list */
-	for(i = 0; i < 10; i++){
-		append(&list, i);
+	
+	while(1){
+		printf("1 - Adds one intem to the list\n2 - Selects one intem from the list\n3 - Removes an item from the list\n4 - Prints the list\n5 - exit\n");
+		printf("Option: ");
+		scanf("%d", &option);
+		switch(option){
+			case 1:
+				printf("Value: ");
+				scanf(" %d", &input);
+				append(&list, input);
+				printf("%d added.\n", input);
+				break;
+			case 2:
+				printf("Index: ");
+				scanf("%d", &input);
+				retrn = getValue(list, input);
+				printf("[%d] = %d\n", input, retrn);
+				break;
+			case 3:
+				printf("1 - Remove from index\n2 - Remove by value\n");
+				scanf("%d", &option2);
+				switch(option2){
+					case 1:
+						printf("Index: ");
+						scanf("%d", &input);
+						removeFromIndex(&list, input);
+						retrn = getValue(list, input);
+						printf("%d removed.\n", retrn);
+						break;
+					case 2:
+						printf("Value: ");
+						scanf("%d", &input);
+						removeByValue(&list, input);
+						break;
+					default:
+						printf("Invalid option.\n");
+					break; 
+				}
+				break;
+			case 4:
+				printf("\n");
+				printList(list);
+				break;
+			case 5:
+				exit(0);
+				break;
+			default:
+				printf("Invalid option.\n");
+				break;
+		}
 	}
-
-	/* Prints the list */
-	printf("Full list:\n");
-	printList(list);
-	
-	
-	/* Removes the first item of the list */
-	printf("\nRemoving the first item:\n");
-	removeFirst(&list);
-	printList(list);
-
-	/* Removes the item on the index 5 */
-	printf("\nRemoving the index 5 item: \n");
-	removeFromIndex(&list, 5);
-	/* Prints the list again */
-	printList(list);
 }
